@@ -92,6 +92,8 @@ app.get('/api/health', (req, res) => {
 });
 
 // Start server with port fallback
+let serverInstance = null;
+
 function startServer(port) {
   const server = app.listen(port)
     .on('listening', () => {
@@ -103,6 +105,8 @@ function startServer(port) {
         console.log('\n⚠️  WARNING: OPENAI_API_KEY not found in environment variables!');
         console.log('   Please copy .env.example to .env and add your OpenAI API key.\n');
       }
+
+      serverInstance = server;
     })
     .on('error', (err) => {
       if (err.code === 'EADDRINUSE') {
@@ -114,5 +118,29 @@ function startServer(port) {
       }
     });
 }
+
+// Graceful shutdown handler
+function gracefulShutdown(signal) {
+  console.log(`\n\n${signal} received, closing server gracefully...`);
+
+  if (serverInstance) {
+    serverInstance.close(() => {
+      console.log('Server closed. Port released.');
+      process.exit(0);
+    });
+
+    // Force close after 5 seconds if graceful shutdown fails
+    setTimeout(() => {
+      console.error('Forced shutdown after timeout');
+      process.exit(1);
+    }, 5000);
+  } else {
+    process.exit(0);
+  }
+}
+
+// Handle shutdown signals
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+process.on('SIGINT', () => gracefulShutdown('SIGINT'));
 
 startServer(PORT);
