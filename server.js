@@ -91,14 +91,28 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`\n🎨 Slack Emoji Generator is running!`);
-  console.log(`📍 Server: http://localhost:${PORT}`);
-  console.log(`🔑 API Key configured: ${process.env.OPENAI_API_KEY ? '✓' : '✗'}`);
+// Start server with port fallback
+function startServer(port) {
+  const server = app.listen(port)
+    .on('listening', () => {
+      console.log(`\n🎨 Slack Emoji Generator is running!`);
+      console.log(`📍 Server: http://localhost:${port}`);
+      console.log(`🔑 API Key configured: ${process.env.OPENAI_API_KEY ? '✓' : '✗'}`);
 
-  if (!process.env.OPENAI_API_KEY) {
-    console.log('\n⚠️  WARNING: OPENAI_API_KEY not found in environment variables!');
-    console.log('   Please copy .env.example to .env and add your OpenAI API key.\n');
-  }
-});
+      if (!process.env.OPENAI_API_KEY) {
+        console.log('\n⚠️  WARNING: OPENAI_API_KEY not found in environment variables!');
+        console.log('   Please copy .env.example to .env and add your OpenAI API key.\n');
+      }
+    })
+    .on('error', (err) => {
+      if (err.code === 'EADDRINUSE') {
+        console.log(`⚠️  Port ${port} is in use, trying ${port + 1}...`);
+        startServer(port + 1);
+      } else {
+        console.error('Server error:', err);
+        process.exit(1);
+      }
+    });
+}
+
+startServer(PORT);
