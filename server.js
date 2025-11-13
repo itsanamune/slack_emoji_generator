@@ -5,7 +5,7 @@ const OpenAI = require('openai');
 const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = parseInt(process.env.PORT, 10) || 3000;
 
 // Initialize OpenAI client
 const openai = new OpenAI({
@@ -94,6 +94,8 @@ app.get('/api/health', (req, res) => {
 let serverInstance = null;
 
 function startServer(port) {
+  // Ensure port is a number
+  port = parseInt(port, 10);
   const server = app.listen(port)
     .on('listening', () => {
       console.log(`\n🎨 Slack Emoji Generator is running!`);
