@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slack Emoji Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎨 Slack Emoji Generator</h1>
+            <p class="subtitle">Generate custom emojis with AI</p>
+        </header>
+
+        <main>
+            <div class="input-section">
+                <div class="input-group">
+                    <label for="prompt">Describe your emoji:</label>
+                    <textarea
+                        id="prompt"
+                        placeholder="e.g., a happy taco, a developer coding at night, a rocket ship blasting off..."
+                        rows="3"
+                    ></textarea>
+                </div>
+
+                <button id="generateBtn" class="generate-btn">
+                    <span class="btn-text">Generate Emoji</span>
+                    <span class="spinner hidden"></span>
+                </button>
+
+                <div id="error" class="error hidden"></div>
+            </div>
+
+            <div id="resultSection" class="result-section hidden">
+                <div class="result-header">
+                    <h2>Your Emoji</h2>
+                    <p class="revised-prompt" id="revisedPrompt"></p>
+                </div>
+
+                <div class="image-container">
+                    <img id="generatedImage" src="" alt="Generated emoji">
+                </div>
+
+                <div class="action-buttons">
+                    <button id="downloadBtn" class="download-btn">
+                        <span>⬇️</span> Download Emoji
+                    </button>
+                    <button id="newEmojiBtn" class="secondary-btn">
+                        ✨ Generate Another
+                    </button>
+                </div>
+
+                <div class="usage-tip">
+                    <p><strong>💡 Tip:</strong> For Slack, emojis work best at 128x128 pixels. You may want to resize this image before uploading.</p>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Powered by OpenAI's DALL-E 3 | <a href="https://github.com" target="_blank">View on GitHub</a></p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
