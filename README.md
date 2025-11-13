@@ -1,11 +1,11 @@
 # 🎨 Slack Emoji Generator
 
-Generate custom Slack emojis using AI! This tool uses OpenAI's DALL-E 3 to create unique, fun emojis based on your text descriptions. Perfect for adding personality to your Slack workspace.
+Generate custom Slack emojis using AI! This tool uses OpenAI's GPT Image (gpt-image-1) model to create unique, fun emojis based on your text descriptions. Perfect for adding personality to your Slack workspace.
 
 ## ✨ Features
 
-- **AI-Powered Generation**: Uses OpenAI's DALL-E 3 for high-quality image generation
-- **Transparent Backgrounds**: Automatically generates emojis optimized for Slack
+- **AI-Powered Generation**: Uses OpenAI's GPT Image (gpt-image-1) for high-quality image generation
+- **Transparent Backgrounds**: Automatically generates emojis with transparent backgrounds optimized for Slack
 - **Simple Interface**: Clean, intuitive UI for easy emoji creation
 - **Local Deployment**: Runs entirely on your local machine
 - **Instant Download**: Download generated emojis with one click
@@ -111,8 +111,8 @@ npm run dev
 
 ## 💰 Cost Considerations
 
-- Each emoji generation uses OpenAI's DALL-E 3 API
-- Standard quality (1024x1024): ~$0.04 per image
+- Each emoji generation uses OpenAI's GPT Image (gpt-image-1) API
+- High quality (1024x1024) with transparent background: Cost varies based on image tokens
 - Check [OpenAI's pricing page](https://openai.com/pricing) for current rates
 - Your API key usage can be monitored in your OpenAI dashboard
 
@@ -153,7 +153,7 @@ MIT License - feel free to use this project however you'd like!
 
 ## 🙏 Acknowledgments
 
-- Built with [OpenAI's DALL-E 3](https://openai.com/dall-e-3)
+- Built with [OpenAI's GPT Image (gpt-image-1)](https://platform.openai.com/docs/guides/image-generation)
 - Inspired by the need for more custom Slack emojis
 
 ---

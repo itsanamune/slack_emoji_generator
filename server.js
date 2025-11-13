@@ -38,25 +38,25 @@ app.post('/api/generate-emoji', async (req, res) => {
     console.log('Generating emoji for prompt:', prompt);
 
     // Create enhanced prompt with emoji-specific instructions
-    const enhancedPrompt = `Create a Slack emoji style icon: ${prompt}. Make it simple, bold, colorful, and perfect for use as a small emoji. Ensure transparent background.`;
+    const enhancedPrompt = `Create a Slack emoji style icon: ${prompt}. Make it simple, bold, colorful, and perfect for use as a small emoji.`;
 
-    // Call OpenAI DALL-E 3 API
+    // Call OpenAI GPT Image API with transparent background
     const response = await openai.images.generate({
-      model: "dall-e-3",
+      model: "gpt-image-1",
       prompt: enhancedPrompt,
-      n: 1,
       size: "1024x1024",
-      quality: "standard",
-      response_format: "url"
+      quality: "high",
+      background: "transparent",
+      response_format: "b64_json"
     });
 
-    const imageUrl = response.data[0].url;
+    const imageBase64 = response.data[0].b64_json;
 
     console.log('Emoji generated successfully');
 
     res.json({
       success: true,
-      imageUrl: imageUrl,
+      imageData: imageBase64,
       revisedPrompt: response.data[0].revised_prompt
     });
 

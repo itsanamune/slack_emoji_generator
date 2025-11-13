@@ -10,7 +10,7 @@ const revisedPrompt = document.getElementById('revisedPrompt');
 const downloadBtn = document.getElementById('downloadBtn');
 const newEmojiBtn = document.getElementById('newEmojiBtn');
 
-let currentImageUrl = null;
+let currentImageData = null;
 
 // Check API health on load
 window.addEventListener('DOMContentLoaded', async () => {
@@ -60,9 +60,9 @@ generateBtn.addEventListener('click', async () => {
             throw new Error(data.error || 'Failed to generate emoji');
         }
 
-        // Display the generated emoji
-        currentImageUrl = data.imageUrl;
-        generatedImage.src = currentImageUrl;
+        // Display the generated emoji (convert base64 to data URL)
+        currentImageData = data.imageData;
+        generatedImage.src = `data:image/png;base64,${currentImageData}`;
 
         if (data.revisedPrompt) {
             revisedPrompt.textContent = `AI interpretation: "${data.revisedPrompt}"`;
@@ -84,13 +84,18 @@ generateBtn.addEventListener('click', async () => {
 });
 
 // Download emoji
-downloadBtn.addEventListener('click', async () => {
-    if (!currentImageUrl) return;
+downloadBtn.addEventListener('click', () => {
+    if (!currentImageData) return;
 
     try {
-        // Fetch the image
-        const response = await fetch(currentImageUrl);
-        const blob = await response.blob();
+        // Convert base64 to blob
+        const byteCharacters = atob(currentImageData);
+        const byteNumbers = new Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        const blob = new Blob([byteArray], { type: 'image/png' });
 
         // Create download link
         const url = window.URL.createObjectURL(blob);
@@ -111,7 +116,7 @@ downloadBtn.addEventListener('click', async () => {
 newEmojiBtn.addEventListener('click', () => {
     promptInput.value = '';
     resultSection.classList.add('hidden');
-    currentImageUrl = null;
+    currentImageData = null;
     hideError();
     promptInput.focus();
 });
