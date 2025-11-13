@@ -22,7 +22,7 @@ Generate custom Slack emojis using AI! This tool uses OpenAI's GPT Image (gpt-im
 
 1. **Clone the repository**
    ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/itsanamune/slack_emoji_generator.git
    cd slack_emoji_generator
    ```
 
@@ -54,6 +54,8 @@ Generate custom Slack emojis using AI! This tool uses OpenAI's GPT Image (gpt-im
 5. **Open your browser**
 
    Navigate to: `http://localhost:3000`
+
+   Note: If port 3000 is in use, the server will automatically try the next available port (3001, 3002, etc.) and display the correct URL in the console.
 
 ## 🎯 Usage
 
@@ -139,6 +141,11 @@ npm run dev
 ### Image download not working
 - Try right-clicking the image and selecting "Save Image As..."
 - Check your browser's download settings
+
+### Port already in use
+- The server automatically tries the next available port if 3000 is in use
+- Check the console output to see which port the server is running on
+- To stop the server properly and release the port, use Ctrl+C (not Ctrl+Z)
 
 ## 🤝 Contributing
 

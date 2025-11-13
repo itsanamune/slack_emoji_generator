@@ -1,7 +1,7 @@
 {
   "name": "slack-emoji-generator",
   "version": "1.0.0",
-  "description": "Generate custom Slack emojis with AI using OpenAI's DALL-E 3",
+  "description": "Generate custom Slack emojis with AI using OpenAI's GPT Image (gpt-image-1)",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -12,8 +12,9 @@
     "emoji",
     "ai",
     "openai",
-    "dalle",
-    "generator"
+    "gpt-image",
+    "generator",
+    "transparent-background"
   ],
   "author": "",
   "license": "MIT",
