@@ -46,8 +46,7 @@ app.post('/api/generate-emoji', async (req, res) => {
       prompt: enhancedPrompt,
       size: "1024x1024",
       quality: "high",
-      background: "transparent",
-      response_format: "b64_json"
+      background: "transparent"
     });
 
     const imageBase64 = response.data[0].b64_json;
