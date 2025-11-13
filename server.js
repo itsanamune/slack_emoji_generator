@@ -38,7 +38,7 @@ app.post('/api/generate-emoji', async (req, res) => {
     console.log('Generating emoji for prompt:', prompt);
 
     // Create enhanced prompt with emoji-specific instructions
-    const enhancedPrompt = `Create a Slack emoji style icon: ${prompt}. Make it simple, bold, colorful, and perfect for use as a small emoji.`;
+    const enhancedPrompt = `Create a Slack emoji style icon: ${prompt}. Make it simple, bold, colorful, and perfect for use as a small emoji. IMPORTANT: Use a completely transparent background.`;
 
     // Call OpenAI GPT Image API with transparent background
     const response = await openai.images.generate({
